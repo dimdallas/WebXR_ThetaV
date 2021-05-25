@@ -8,8 +8,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/bc/0db5a1f4/UnityWebRequest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/9a/ab637f3f/DownloadHandlerScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/e7/96221392/DownloadHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.de-panther.webxr@0.8.1-preview/Runtime/XRPlugin/WebXRLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.de-panther.webxr@0.8.1-preview/Runtime/XRPlugin/XRSystemLifecycleManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MyDownloadHandler.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -80,7 +83,10 @@
       <workItem from="1618840632061" duration="618000" />
       <workItem from="1621431019778" duration="233000" />
       <workItem from="1621852874268" duration="1735000" />
-      <workItem from="1621936945086" duration="1859000" />
+      <workItem from="1621936945086" duration="3001000" />
+      <workItem from="1621941074735" duration="3540000" />
+      <workItem from="1621947903547" duration="1299000" />
+      <workItem from="1621949855957" duration="7000" />
     </task>
     <servers />
   </component>

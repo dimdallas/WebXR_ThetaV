@@ -281,7 +281,7 @@ PrefabInstance:
     - target: {fileID: 9074763875095696186, guid: 3aa4cdf55ad2f984093ced5b468987a5,
         type: 3}
       propertyPath: useProxy
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9074763875325519773, guid: 3aa4cdf55ad2f984093ced5b468987a5,
         type: 3}

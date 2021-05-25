@@ -25,8 +25,6 @@ namespace ThetaStreaming.Scripts
         public int texHeight = 512;
         public int framerate = 30;
 
-        private bool isLooping = true;
-
         private UnityWebRequest request;
 
         private void Awake()
@@ -114,13 +112,12 @@ namespace ThetaStreaming.Scripts
                 downloadHandler = (DownloadHandler) new MyDownloadHandler(byteBuffer,thetaMaterial)
             };
             // byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
-
+            
             request.SetRequestHeader("Content-Type", "application/json");
 
             
             Debug.Log("Sent");
-            //Send the request then wait here until it returns
-            yield return request.SendWebRequest();
+            request.SendWebRequest();
             Debug.Log("Returned");
 
             while (!request.isDone)

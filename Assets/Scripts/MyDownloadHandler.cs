@@ -30,15 +30,17 @@ public class MyDownloadHandler : DownloadHandlerScript
     {
         this.thetaMaterial = thetaMaterial;
         imageBytes = new List<byte>();
+        tex = new Texture2D(2, 2);
     }
 
-    // Required by DownloadHandler base class. Called when you address the 'bytes' property.
+    // Required by DownloadHandler base class. Called when you address the 'bytes' property. ('data' property)
     protected override byte[] GetData() { return null; }
 
     // Called once per frame when data has been received from the network.
     protected override bool ReceiveData(byte[] bytesFromCamera, int dataLength)
     {
-        Debug.Log("CustomWebRequest :: ReceiveData - inside" + bytesFromCamera.Length + " " + dataLength);
+        // Debug.Log("CustomWebRequest :: ReceiveData - pre-allocated " + bytesFromCamera.Length + ", received " + dataLength);
+        // Debug.Log(bytesFromCamera.GetHashCode());
         
         if (bytesFromCamera.Length < 1)
         {
@@ -46,11 +48,14 @@ public class MyDownloadHandler : DownloadHandlerScript
             return false;
         }
 
+        byte byteData1 = Byte.MaxValue;
+        byte byteData2 = Byte.MaxValue;
+        
         //Search of JPEG Image here
         for (int i = 0; i < dataLength; i ++)
         {
             // Debug.Log("CustomWebRequest :: ReceiveData - inside for");
-            byte byteData1 = bytesFromCamera[i];
+            byteData1 = bytesFromCamera[i];
             
 
             if (!isLoadStart)
@@ -59,7 +64,7 @@ public class MyDownloadHandler : DownloadHandlerScript
                 if (byteData1 == 0xFF)
                 {
                     i++;
-                    byte byteData2 = bytesFromCamera[i];
+                    byteData2 = bytesFromCamera[i];
                     if(byteData2 == 0xD8)
                     {
                         imageBytes.Add(byteData1);
@@ -79,21 +84,24 @@ public class MyDownloadHandler : DownloadHandlerScript
                     if (i + 1 < dataLength)
                     {
                         i++;
-                        byte byteData2 = bytesFromCamera[i];
+                        byteData2 = bytesFromCamera[i];
                         imageBytes.Add(byteData2);
                         if (byteData2 == 0xD9)
                         {
-                            tex = new Texture2D(2, 2);
+                            // tex = new Texture2D(2, 2);
+                            // Debug.Log(tex.GetHashCode());
                             tex.LoadImage((byte[]) imageBytes.ToArray());
                             thetaMaterial.mainTexture = tex;
                             imageBytes.Clear();
+                            
                             isLoadStart = false;
                         }
                     }
                 }
             }
         }
-
+        // Debug.Log("image bytes " +imageBytes.Count);
+        Debug.Log("End");
         return true;
     }
 
