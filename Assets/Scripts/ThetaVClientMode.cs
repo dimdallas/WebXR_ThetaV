@@ -13,9 +13,10 @@ namespace ThetaStreaming.Scripts
     public class ThetaVClientMode : MonoBehaviour {
         [Header("Theta Control")]
         public Material thetaMaterial;
-        // public string thetaUrl = "https://cors-anywhere.herokuapp.com/corsdemo/http://10.64.45.228";
-        public string thetaUrl = "http://10.64.45.228";
+        public bool useProxy = true;
         private string executeCmd = "/osc/commands/execute";
+        public string proxyUrl = "http://10.64.45.103:5000";
+        public string thetaUrl = "http://10.64.45.228";
         public string thetaID = "THETAYL00245200";
         public string thetaPassword = "00245200";
 
@@ -49,10 +50,14 @@ namespace ThetaStreaming.Scripts
         }
 
         // Use this for initialization and UnityWebRequest
-        IEnumerator GetLivePreview_UWR () {
-            string url = thetaUrl + executeCmd;
+        IEnumerator GetLivePreview_UWR ()
+        {
+            string url = "";
+            if (useProxy)
+                url = proxyUrl + executeCmd;
+            else
+                url = thetaUrl + executeCmd;
 
-            
             //setOptions request
             byte[] setOptionsBytes = Encoding.Default.GetBytes("{"+
                                                           "\"name\":\"camera.setOptions\","+

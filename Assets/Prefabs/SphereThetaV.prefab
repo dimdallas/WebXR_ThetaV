@@ -113,12 +113,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thetaMaterial: {fileID: 2100000, guid: a7a105b95682a44738eb254d4e763a52, type: 2}
+  useProxy: 1
+  proxyUrl: http://10.64.45.103:5000
   thetaUrl: http://10.64.45.228
   thetaID: THETAYL00245200
   thetaPassword: 00245200
   texWidth: 1920
   texHeight: 960
   framerate: 8
-  tex: {fileID: 0}
-  tex2: {fileID: 0}
-  texStored: 0

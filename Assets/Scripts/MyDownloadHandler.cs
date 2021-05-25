@@ -38,7 +38,7 @@ public class MyDownloadHandler : DownloadHandlerScript
     // Called once per frame when data has been received from the network.
     protected override bool ReceiveData(byte[] bytesFromCamera, int dataLength)
     {
-        // Debug.Log("CustomWebRequest :: ReceiveData - inside" + bytesFromCamera.Length + " " + dataLength);
+        Debug.Log("CustomWebRequest :: ReceiveData - inside" + bytesFromCamera.Length + " " + dataLength);
         
         if (bytesFromCamera.Length < 1)
         {
@@ -47,7 +47,6 @@ public class MyDownloadHandler : DownloadHandlerScript
         }
 
         //Search of JPEG Image here
-        
         for (int i = 0; i < dataLength; i ++)
         {
             // Debug.Log("CustomWebRequest :: ReceiveData - inside for");
