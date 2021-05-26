@@ -15,7 +15,7 @@ namespace ThetaStreaming.Scripts
         public Material thetaMaterial;
         public bool useProxy = true;
         private string executeCmd = "/osc/commands/execute";
-        public string proxyUrl = "http://10.64.45.103:5000";
+        public string proxyUrl = "https://10.64.45.103:5000";
         public string thetaUrl = "http://10.64.45.228";
         public string thetaID = "THETAYL00245200";
         public string thetaPassword = "00245200";
@@ -70,7 +70,8 @@ namespace ThetaStreaming.Scripts
             request = new UnityWebRequest(url, "POST")
             {
                 uploadHandler = (UploadHandler) new UploadHandlerRaw(setOptionsBytes),
-                downloadHandler = (DownloadHandler) new DownloadHandlerBuffer()
+                downloadHandler = (DownloadHandler) new DownloadHandlerBuffer(),
+                certificateHandler = new HttpsBypass()
             };
             // byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
 
@@ -81,7 +82,9 @@ namespace ThetaStreaming.Scripts
             request.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
             request.SetRequestHeader("Access-Control-Allow-Origin", "*");*/
             
-
+            //bypass HTTPS certificate
+            // request.certificateHandler = new HttpsBypass();
+            
             //Send the request then wait here until it returns
             yield return request.SendWebRequest();
 
@@ -109,32 +112,47 @@ namespace ThetaStreaming.Scripts
             request = new UnityWebRequest(url, "POST")
             {
                 uploadHandler = (UploadHandler) new UploadHandlerRaw(postBytes),
-                downloadHandler = (DownloadHandler) new MyDownloadHandler(byteBuffer,thetaMaterial)
+                downloadHandler = (DownloadHandler) new MyDownloadHandler(byteBuffer,thetaMaterial),
+                certificateHandler = new HttpsBypass()
             };
             // byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
             
             request.SetRequestHeader("Content-Type", "application/json");
-
+            request.chunkedTransfer = false;
             
-            Debug.Log("Sent");
-            request.SendWebRequest();
-            Debug.Log("Returned");
-
-            while (!request.isDone)
-            {
-                yield return new WaitForEndOfFrame();
-            }
+            //bypass HTTPS certificate
+            // request.certificateHandler = new HttpsBypass();
             
+            Debug.Log("Send live request");
+            //not yield return because runs endlessly
+            UnityWebRequestAsyncOperation async =  request.SendWebRequest();
+            Debug.Log("below async");
+
+            // yield return async;
+            Debug.Log("Returned from live request");
+
             if (request.isNetworkError)
             {
+                Debug.Log("network error");
                 Debug.Log(request.error);
             }
             else
             {
-                // var jsonContent = request.downloadHandler.data;
-                Debug.Log("worked fine");
+                // Debug.Log("not error");
+                // Console.WriteLine("not error Console");
+                // Debug.Log(request.downloadHandler);
                 yield return null;
             }
+
+            while (!async.isDone)
+            {
+                // Debug.Log("in while");
+                // var jsonContent = request.downloadHandler.data;
+                // Debug.Log("Coroutine " +request.downloadedBytes);
+                yield return new WaitForEndOfFrame();
+            }
+
+            Debug.Log("Stream ended");
         }
     }
 }

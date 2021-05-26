@@ -28,6 +28,7 @@ public class MyDownloadHandler : DownloadHandlerScript
     public MyDownloadHandler(byte[] buffer, Material thetaMaterial)
         : base(buffer)
     {
+        // Debug.Log("DownloadHandler Created");
         this.thetaMaterial = thetaMaterial;
         imageBytes = new List<byte>();
         tex = new Texture2D(2, 2);
@@ -101,7 +102,7 @@ public class MyDownloadHandler : DownloadHandlerScript
             }
         }
         // Debug.Log("image bytes " +imageBytes.Count);
-        Debug.Log("End");
+        // Debug.Log("End");
         return true;
     }
 
@@ -113,8 +114,15 @@ public class MyDownloadHandler : DownloadHandlerScript
 
     // Called when a Content-Length header is received from the server.
     [Obsolete("Use ReceiveContentLengthHeader")]
+    protected override void ReceiveContentLengthHeader(ulong contentLength)
+    {
+        Debug.Log("My ReceiveContentLengthHeader");
+        Debug.Log($"CustomWebRequest :: ReceiveContentLengthHeader - length {contentLength}");
+    }
+    
     protected override void ReceiveContentLength(int contentLength)
     {
+        Debug.Log("My ReceiveContentLength");
         Debug.Log($"CustomWebRequest :: ReceiveContentLength - length {contentLength}");
     }
 }
