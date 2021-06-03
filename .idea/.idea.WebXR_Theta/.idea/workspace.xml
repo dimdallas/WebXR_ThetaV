@@ -9,14 +9,18 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/bc/0db5a1f4/UnityWebRequest.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/9a/ab637f3f/DownloadHandlerScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SimpleDownloadHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/HttpsBypass.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9F342DAB-4758-43C6-B2D1-D3F3154F8D67/26/0b8edba2/AsyncOperation.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/e7/96221392/DownloadHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.de-panther.webxr@0.8.1-preview/Runtime/XRPlugin/WebXRLoader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.de-panther.webxr@0.8.1-preview/Runtime/XRPlugin/XRSystemLifecycleManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/7b/a8074ef4/UnityWebRequestAsyncOperation.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MyDownloadHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MjpegDownloadHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/CAFB29D5-2338-47FB-B4ED-CF8D7C32B1E3/8c/b9dedd1f/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/71ADD8DF-9039-4FBE-BF8F-82CBAD09FDDB/c8/f9973a89/UsedByNativeCodeAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/9a/ab637f3f/DownloadHandlerScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/24/544edce3/DownloadHandlerBuffer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FEA96CDC-5E53-48DE-9AE3-7B6BD9820E83/e7/96221392/DownloadHandler.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -24,6 +28,8 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/HttpsBypass.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MyDownloadHandler.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ThetaVClientMode.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/SimpleDownloadHandler.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/MjpegDownloadHandler.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1r7A3Y3rZfFnLGV55DigpRKEPqN" />
@@ -92,6 +98,9 @@
       <workItem from="1621947903547" duration="1299000" />
       <workItem from="1621949855957" duration="86000" />
       <workItem from="1622022952169" duration="12305000" />
+      <workItem from="1622455528920" duration="4220000" />
+      <workItem from="1622548633144" duration="14231000" />
+      <workItem from="1622722813214" duration="8834000" />
     </task>
     <servers />
   </component>

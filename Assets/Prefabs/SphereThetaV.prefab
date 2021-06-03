@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9074763875325623229}
+  - component: {fileID: 9074763875095696186}
   - component: {fileID: 9074763875326426013}
   - component: {fileID: 9074763875327523165}
   - component: {fileID: 9074763875332805725}
-  - component: {fileID: 9074763875095696186}
   m_Layer: 0
   m_Name: SphereThetaV
   m_TagString: Untagged
@@ -34,6 +34,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9074763875095696186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074763875325519773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e7cf46967e8e8419f2bbec7674b049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thetaMaterial: {fileID: 2100000, guid: a7a105b95682a44738eb254d4e763a52, type: 2}
+  useProxy: 1
+  MjpegDecode: 0
+  proxyUrl: https://10.64.44.160:5000
+  thetaUrl: http://10.64.45.228
+  thetaID: THETAYL00245200
+  thetaPassword: 00245200
+  texWidth: 640
+  texHeight: 320
+  framerate: 30
 --- !u!33 &9074763875326426013
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -100,24 +122,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9074763875095696186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9074763875325519773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8e7cf46967e8e8419f2bbec7674b049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thetaMaterial: {fileID: 2100000, guid: a7a105b95682a44738eb254d4e763a52, type: 2}
-  useProxy: 1
-  proxyUrl: https://10.64.45.103:5000
-  thetaUrl: http://10.64.45.228
-  thetaID: THETAYL00245200
-  thetaPassword: 00245200
-  texWidth: 1920
-  texHeight: 960
-  framerate: 8

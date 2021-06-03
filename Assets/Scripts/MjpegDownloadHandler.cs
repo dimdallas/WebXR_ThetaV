@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MyDownloadHandler : DownloadHandlerScript
+public class MjpegDownloadHandler : DownloadHandlerScript
 {
     private Material thetaMaterial;
     private Texture2D tex;
@@ -15,7 +15,7 @@ public class MyDownloadHandler : DownloadHandlerScript
     private bool isLoadStart = false;
     
     // Standard scripted download handler - will allocate memory on each ReceiveData callback
-    public MyDownloadHandler(Material thetaMaterial)
+    public MjpegDownloadHandler(Material thetaMaterial)
         : base()
     {
         this.thetaMaterial = thetaMaterial;
@@ -25,7 +25,7 @@ public class MyDownloadHandler : DownloadHandlerScript
     // Pre-allocated scripted download handler
     // Will reuse the supplied byte array to deliver data.
     // Eliminates memory allocation.
-    public MyDownloadHandler(byte[] buffer, Material thetaMaterial)
+    public MjpegDownloadHandler(byte[] buffer, Material thetaMaterial)
         : base(buffer)
     {
         // Debug.Log("DownloadHandler Created");
@@ -40,7 +40,7 @@ public class MyDownloadHandler : DownloadHandlerScript
     // Called once per frame when data has been received from the network.
     protected override bool ReceiveData(byte[] bytesFromCamera, int dataLength)
     {
-        // Debug.Log("CustomWebRequest :: ReceiveData - pre-allocated " + bytesFromCamera.Length + ", received " + dataLength);
+        Debug.Log("MyDownloadHandler :: ReceiveData " + dataLength);
         // Debug.Log(bytesFromCamera.GetHashCode());
         
         if (bytesFromCamera.Length < 1)
@@ -109,20 +109,20 @@ public class MyDownloadHandler : DownloadHandlerScript
     // Called when all data has been received from the server and delivered via ReceiveData
     protected override void CompleteContent()
     {
-        Debug.Log("CustomWebRequest :: CompleteContent - DOWNLOAD COMPLETE!");
+        // Debug.Log("CustomWebRequest :: CompleteContent - DOWNLOAD COMPLETE!");
     }
 
     // Called when a Content-Length header is received from the server.
-    [Obsolete("Use ReceiveContentLengthHeader")]
     protected override void ReceiveContentLengthHeader(ulong contentLength)
     {
-        Debug.Log("My ReceiveContentLengthHeader");
-        Debug.Log($"CustomWebRequest :: ReceiveContentLengthHeader - length {contentLength}");
+        // Debug.Log("My ReceiveContentLengthHeader");
+        // Debug.Log($"CustomWebRequest :: ReceiveContentLengthHeader - length {contentLength}");
     }
     
+    [Obsolete("Use ReceiveContentLengthHeader")]
     protected override void ReceiveContentLength(int contentLength)
     {
-        Debug.Log("My ReceiveContentLength");
-        Debug.Log($"CustomWebRequest :: ReceiveContentLength - length {contentLength}");
+        // Debug.Log("My ReceiveContentLength");
+        // Debug.Log($"CustomWebRequest :: ReceiveContentLength - length {contentLength}");
     }
 }
