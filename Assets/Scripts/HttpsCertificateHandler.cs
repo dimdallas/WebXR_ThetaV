@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Networking;
 
-public class HttpsBypass : CertificateHandler
+public class HttpsCertificateHandler : CertificateHandler
 {
     protected override bool ValidateCertificate(byte[] certificateData)
     {

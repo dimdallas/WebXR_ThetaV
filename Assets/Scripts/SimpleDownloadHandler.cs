@@ -46,13 +46,17 @@ public class SimpleDownloadHandler : DownloadHandlerScript
         
         //Parse JPEG Image to material
         //JPEG ~35000 at 640x320
-        if (dataLength < 35000)
+        /*if (dataLength < 35000)
         {
-            dataStream.AddRange(bytesFromCamera);
+            // dataStream.AddRange(bytesFromCamera);
+            for (int i = 0; i < dataLength; i++)
+            {
+                dataStream.Add(bytesFromCamera[i]);
+            }
             if (dataStream.Count > 35000)
             {
                 Debug.Log("SimpleDownloadHandler :: Concatenate bytes " + dataStream.Count);
-                tex.LoadImage((byte[]) dataStream.ToArray());
+                tex.LoadImage(dataStream.ToArray());
                 thetaMaterial.mainTexture = tex;
                 dataStream.Clear();
             }
@@ -61,6 +65,18 @@ public class SimpleDownloadHandler : DownloadHandlerScript
         {
             tex.LoadImage(bytesFromCamera);
             thetaMaterial.mainTexture = tex;
+        }*/
+        
+        for (int i = 0; i < dataLength; i++)
+        {
+            dataStream.Add(bytesFromCamera[i]);
+        }
+        if (dataStream.Count > 35000)
+        {
+            // Debug.Log("SimpleDownloadHandler :: Concatenate bytes " + dataStream.Count);
+            tex.LoadImage(dataStream.ToArray());
+            thetaMaterial.mainTexture = tex;
+            dataStream.Clear();
         }
         
         // Debug.Log("image bytes " +imageBytes.Count);

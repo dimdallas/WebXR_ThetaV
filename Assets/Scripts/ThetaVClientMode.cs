@@ -12,7 +12,7 @@ namespace ThetaStreaming.Scripts
         public bool useProxy = true;
         public bool MjpegDecode = true;
         private string executeCmd = "/osc/commands/execute";
-        public string proxyUrl = "https://10.64.44.160:5000";
+        public string proxyUrl = "https://10.64.44.242:5000";
         public string thetaUrl = "http://10.64.45.228";
         public string thetaID = "THETAYL00245200";
         public string thetaPassword = "00245200";
@@ -24,6 +24,7 @@ namespace ThetaStreaming.Scripts
 
         private UnityWebRequest request;
         private string url;
+        private bool succeeded = false;
 
         private void Awake()
         {
@@ -46,7 +47,7 @@ namespace ThetaStreaming.Scripts
         void OnApplicationQuit()
         {
             Debug.Log("Application ending after " + Time.time + " seconds");
-            StopCoroutine(GetLivePreview_UWR());
+            StopAllCoroutines();
             request.Abort();
         }
 
@@ -78,7 +79,10 @@ namespace ThetaStreaming.Scripts
             {
                 uploadHandler = (UploadHandler) new UploadHandlerRaw(setOptionsBytes),
                 downloadHandler = (DownloadHandler) new DownloadHandlerBuffer(),
-                certificateHandler = new HttpsBypass()
+                certificateHandler = new HttpsCertificateHandler(),
+                disposeUploadHandlerOnDispose = true,
+                disposeDownloadHandlerOnDispose = true,
+                disposeCertificateHandlerOnDispose = true
             };
 
             request.SetRequestHeader("Content-Type", "application/json");
@@ -97,30 +101,33 @@ namespace ThetaStreaming.Scripts
             }
             else
             {
-                Debug.Log("setOptions status: " + request.downloadHandler.text);
+                Debug.Log("Set options status: " + request.responseCode);
             }
+            
+            request.Dispose();
+            request = null;
         }
 
         IEnumerator PreviewRequest()
         {
             byte[] byteBuffer = new byte[50000];
             byte[] postBytes = Encoding.Default.GetBytes("{\"name\" : \"camera.getLivePreview\"}");
-            
+
             request = new UnityWebRequest(url, "POST")
             {
                 uploadHandler = (UploadHandler) new UploadHandlerRaw(postBytes),
-                downloadHandler = (DownloadHandler) new MjpegDownloadHandler(byteBuffer,thetaMaterial),
-                certificateHandler = new HttpsBypass()
+                downloadHandler = (DownloadHandler) new MjpegDownloadHandler(byteBuffer, thetaMaterial),
+                certificateHandler = new HttpsCertificateHandler(),
+                disposeUploadHandlerOnDispose = true,
+                disposeDownloadHandlerOnDispose = true,
+                disposeCertificateHandlerOnDispose = true
             };
-            
-            // byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
-            
-            request.SetRequestHeader("Content-Type", "application/json");
             // default for chunkedTransfer is false
             // request.chunkedTransfer = true;
             // request.useHttpContinue = true;
-            
-            
+
+            request.SetRequestHeader("Content-Type", "application/json");
+
             //not yield return because runs endlessly
             UnityWebRequestAsyncOperation async =  request.SendWebRequest();
             // Debug.Log("below async");
@@ -158,31 +165,84 @@ namespace ThetaStreaming.Scripts
                 // Debug.Log(async.progress);
                 yield return new WaitForEndOfFrame();
             }
-
+            
+            request.Dispose();
+            request = null;
             Debug.Log("Stream ended");
+        }
+        
+        IEnumerator StartRecording()
+        {
+            //setOptions request
+            byte[] postBytes = Encoding.Default.GetBytes("{\"name\" : \"camera.recordMjpeg\"}");
+            // Debug.Log(System.Text.Encoding.Default.GetString(paramBytes));
+
+            request = new UnityWebRequest(url, "POST")
+            {
+                uploadHandler = (UploadHandler) new UploadHandlerRaw(postBytes),
+                downloadHandler = (DownloadHandler) new DownloadHandlerBuffer(),
+                certificateHandler = new HttpsCertificateHandler(),
+                disposeUploadHandlerOnDispose = true,
+                disposeDownloadHandlerOnDispose = true,
+                disposeCertificateHandlerOnDispose = true
+            };
+
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            //Send the request then wait here until it returns
+            yield return request.SendWebRequest();
+
+            while (!request.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            
+            if (request.isNetworkError)
+            {
+                Debug.Log(request.error);
+            }
+            else
+            {
+                if (request.responseCode == 200)
+                    succeeded = true;
+                
+                Debug.Log("StartRecording status: " + request.responseCode);
+            }
+            
+            request.Dispose();
+            request = null;
         }
         
         IEnumerator RepetitivePreviewRequests()
         {
+            
+            yield return StartCoroutine(StartRecording());
+            
             byte[] byteBuffer = new byte[50000];
             byte[] postBytes = Encoding.Default.GetBytes("{\"name\" : \"camera.getJpeg\"}");
             
             while (true)
             {
+                if (!succeeded)
+                {
+                    Debug.Log("Not Succeeded");
+                    yield break;
+                }
+
                 request = new UnityWebRequest(url, "POST")
                 {
                     uploadHandler = (UploadHandler) new UploadHandlerRaw(postBytes),
                     downloadHandler = (DownloadHandler) new SimpleDownloadHandler(byteBuffer, thetaMaterial),
-                    certificateHandler = new HttpsBypass()
+                    certificateHandler = new HttpsCertificateHandler(),
+                    disposeUploadHandlerOnDispose = true,
+                    disposeDownloadHandlerOnDispose = true,
+                    disposeCertificateHandlerOnDispose = true
                 };
-                
-                // byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
-                
-                request.SetRequestHeader("Content-Type", "application/json");
                 // default for chunkedTransfer is false
                 // request.chunkedTransfer = true;
                 // request.useHttpContinue = true;
-                
+
+                request.SetRequestHeader("Content-Type", "application/json");
                 
                 //not yield return because runs endlessly
                 UnityWebRequestAsyncOperation async =  request.SendWebRequest();
@@ -222,11 +282,11 @@ namespace ThetaStreaming.Scripts
                     yield return new WaitForEndOfFrame();
                 }
 
-                Debug.Log("Stream ended");
-                yield return new WaitForEndOfFrame();
                 request.Dispose();
                 request = null;
                 GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Debug.Log("Stream ended");
             }
             
         }
